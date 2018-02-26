@@ -1,80 +1,79 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: https://gs-sts-cloud-foundry-deployment-shailesh.cfapps.io
 
 # CourseAPI
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+This is an API to get all the courses available, create new courses, get the courses individually. It can also update and delete a course.
 
-## Questions Collection [/questions]
+## Employee Collection [/]
 
-### List All Questions [GET]
+### Get all Topics [GET/topics]
 
 + Response 200 (application/json)
 
         [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
+           
                     {
-                        "choice": "Swift",
-                        "votes": 2048
+                        "id": "Spring",
+                        "name": "Spring boot",
+                        "description": "Spring boot description"
                     }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
+                        "id": "Java",
+                        "name": "Core Java",
+                        "description": "Core Java description"
                     }
-                ]
-            }
         ]
 
-### Create a New Question [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+### Get a Topic [GET/topics/{id}]
+
++ Parameters
+    + id(String)
+    
++ Response 200 (application/json)
+
+          {
+            "id": "Spring",
+            "name": "Spring boot",
+            "description": "Spring boot description"
+          }
+    
+### Create new Topic[POST/topics]
 
 + Request (application/json)
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
+          { 
+            "id": "JavaEE",
+            "name": "Java Enterprise Edition",
+            "description": "Java Enterprise Edition description"
+          }
 
-+ Response 201 (application/json)
++ Response 200
+      
+         Topic created Successfully!!!
 
-    + Headers
+### Update a Topic[PUT/topics/{id}]
 
-            Location: /questions/2
++ Parameters
+    + id(String)
+    
++ Request (application/json)
 
-    + Body
+          { 
+            "id": "JavaEE",
+            "name": "Updated Java Enterprise Edition",
+            "description": "Java Enterprise Edition description"
+          }
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
++ Response 200
+      
+         Topic updated Successfully!!!
+
+### Delete a Topic[DELETE/topics/{id}]
+
++ Parameters
+    + id(String)
+    
++ Response 200
+      
+         Topic Deleted Successfully!!!
